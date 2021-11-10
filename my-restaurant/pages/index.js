@@ -26,7 +26,7 @@ export default function Home() {
       fetchHelper('/api/categories/neighborhoods'),
       fetchHelper('/api/restaurants')
     ])
-    filters.then(([boroughs, cuisines, neighborhoods, restaurants])=>{
+    filters.then(([boroughs, cuisines, neighborhoods, restaurants]) => {
       if (restaurants) setRestaurants(restaurants)
       if (!boroughs || !cuisines || !neighborhoods) return
       setSelects({
@@ -35,9 +35,9 @@ export default function Home() {
         neighborhood: neighborhoods
       })
     })
-  },[])
+  }, [])
   const fetchHelper = async (path) => {
-    return fetch(path).then(r=>r.json())
+    return fetch(path).then(r => r.json())
   }
   const getRestaurants = (page) => {
     let params = `?page=${page}&page-size=${PAGE_SIZE}&`
@@ -51,12 +51,12 @@ export default function Home() {
   }
   const pageForward = () => {
     setPage(page + 1)
-    getRestaurants(page+1)
+    getRestaurants(page + 1)
   }
   const pageBack = () => {
     if (page === 1) return
     setPage(page - 1)
-    getRestaurants(page-1)
+    getRestaurants(page - 1)
   }
   return (
     <div className={styles.container}>
@@ -69,20 +69,20 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to our NYC Restaurant App!
         </h1>
-        
-        <Select label="Borough" options={selects.borough} curr={borough} onChange={setBorough}/>
-        <Select label="Cuisine" options={selects.cuisine} curr={cuisine} onChange={setCuisine}/>
-        <Select label="Neighborhood" options={selects.neighborhood} curr={neighborhood} onChange={setNeighborhood}/>
-        <Select label="Orders" options={gradeSelects} curr={grades} onChange={setGrades}/>
-        <button onClick={()=>getRestaurants(1)}>Apply Filters</button>
-        <div style={{display: 'flex'}}>
+
+        <Select label="Borough" options={selects.borough} curr={borough} onChange={setBorough} />
+        <Select label="Cuisine" options={selects.cuisine} curr={cuisine} onChange={setCuisine} />
+        <Select label="Neighborhood" options={selects.neighborhood} curr={neighborhood} onChange={setNeighborhood} />
+        <Select label="Orders" options={gradeSelects} curr={grades} onChange={setGrades} />
+        <button onClick={() => getRestaurants(1)}>Apply Filters</button>
+        <div style={{ display: 'flex' }}>
           <button onClick={pageBack}>back</button>
           <button onClick={pageForward}>forward</button>
         </div>
-        
-        {restaurants.map((r,i)=> <RestaurantRow key={r.restaurant_id} restaurant={r}/>)}
-        
-        
+
+        {restaurants.map((r, i) => <RestaurantRow key={r.restaurant_id} restaurant={r} />)}
+
+
       </main>
       <footer className={styles.footer}>
         <a
